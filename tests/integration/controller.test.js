@@ -24,6 +24,11 @@ describe('Controller-Service Integration Tests', () => {
         // Then, get the list of todos directly from the service.
         // Assert that the service's todos array has a length of 1.
         // Assert that the text of the first todo in the service matches the input.
+        text="Test Todo";
+        controller.handleAddTodo(text);
+        const todos = service.getTodos();
+        expect(todos.length).toBe(1);
+        expect(todos[0].text).toBe(text);
     });
 
     test('handleRemoveTodo should call service.removeTodo and update the model', () => {
@@ -31,5 +36,11 @@ describe('Controller-Service Integration Tests', () => {
         // Get the ID of the new todo.
         // Call the controller's handleRemoveTodo method with that ID.
         // Assert that the service's todos array is now empty.
+        text="Test Todo";
+        service.addTodo(text);
+        const todoId = service.getTodos()[0].id;
+        controller.handleRemoveTodo(todoId);
+        const todos = service.getTodos();
+        expect(todos.length).toBe(0);
     });
 });
